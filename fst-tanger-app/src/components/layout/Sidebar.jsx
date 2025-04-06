@@ -35,17 +35,10 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
     <>
       <div className={`fstt-sidebar-overlay ${isOpen ? 'open' : ''}`} onClick={handleClose} />
       
-      <nav className={`fstt-sidebar ${isOpen ? 'open' : ''}`}>
+      <nav className={`fstt-sidebar ${isOpen ? 'open' : ''} ns`}>
         <div className="fstt-sidebar-header">
           <h2 className="fstt-app-name">{t('department.title')}</h2>
-          <button 
-            className="fstt-sidebar-close" 
-            onClick={handleClose}
-            aria-label="Close menu"
-            type="button"
-          >
-            <img src="/assets/icons/menu.png" alt="Close" />
-          </button>
+
         </div>
         
         <div className="fstt-sidebar-content">
@@ -168,51 +161,7 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
           </div>
         </div>
         
-        <div className="fstt-sidebar-footer">
-          {currentUser ? (
-            <>
-              <div className="fstt-user-info">
-                <span className="fstt-user-name">{currentUser.nom}</span>
-                <span className="fstt-user-role">{currentUser.role}</span>
-              </div>
-              <div className="fstt-user-actions">
-                <Link 
-                  to="/profile" 
-                  className="fstt-btn fstt-btn-secondary" 
-                  onClick={handleClose}
-                >
-                  {t('nav.profile')}
-                </Link>
-                <Link 
-                  to="/settings" 
-                  className="fstt-btn" 
-                  onClick={handleClose}
-                >
-                  {t('nav.settings')}
-                </Link>
-              </div>
-              <button 
-                onClick={() => {
-                  logout();
-                  handleClose();
-                }} 
-                className="fstt-logout-btn"
-              >
-                <span className="fstt-btn-icon"><Icons.LogOut /></span>
-                {t('nav.logout')}
-              </button>
-            </>
-          ) : (
-            <Link 
-              to="/login" 
-              className="fstt-login-btn" 
-              onClick={handleClose}
-            >
-              <span className="fstt-btn-icon"><Icons.LogIn /></span>
-              {t('nav.login')}
-            </Link>
-          )}
-        </div>
+        
       </nav>
     </>
   );

@@ -7,7 +7,12 @@
   border-top: 1px solid var(--border-color);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
+.ns {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
 .fstt-footer-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -174,10 +179,6 @@
 [data-theme="dark"] .fstt-footer-social a:hover {
   background-color: var(--primary);
   color: white;
-}
-
-[data-theme="dark"] .fstt-footer-bottom {
-  border-top-color: var(--border-color);
 }
 
 @media (max-width: 768px) {

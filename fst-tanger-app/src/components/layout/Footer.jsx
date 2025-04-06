@@ -2,21 +2,24 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
+
 /**
  * Footer component
  */
 const Footer = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
-  
   return (
     <footer className="fstt-footer">
       <div className="fstt-footer-content">
-        <div className="fstt-footer-logo">
-          <img src="/assets/logo-fst.png" alt="FST Tanger" />
+        <div className="fstt-footer-logo ns">
+          <img
+            src='/assets/logo-fst.png'
+            alt="FST Tanger"
+          />
         </div>
         
-        <div className="fstt-footer-column">
+        <div className="fstt-footer-column ns">
           <h3>{t('department.title')}</h3>
           <ul className="fstt-footer-links">
             <li><Link to="/courses">{t('nav.courses')}</Link></li>
@@ -26,7 +29,7 @@ const Footer = () => {
           </ul>
         </div>
         
-        <div className="fstt-footer-column">
+        <div className="fstt-footer-column ns">
           <h3>{t('resources.title')}</h3>
           <ul className="fstt-footer-links">
             <li><Link to="/resources">{t('resources.rooms')}</Link></li>
@@ -36,7 +39,7 @@ const Footer = () => {
         </div>
         
         <div className="fstt-footer-column">
-          <h3>{t('department.contact')}</h3>
+          <h3 className='ns'>{t('department.contact')}</h3>
           <div className="fstt-footer-contact">
             <p>
               <span className="fstt-icon">

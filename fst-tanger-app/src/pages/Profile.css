@@ -13,6 +13,12 @@
   border: 1px solid var(--card-border);
 }
 
+.ns {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
 .fstt-profile-header {
   display: flex;
   align-items: center;
