@@ -1,0 +1,147 @@
+/* Dashboard styles based on FSTT's design system */
+.fstt-dashboard {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fstt-dashboard h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: var(--text-primary);
+}
+
+.fstt-dashboard-welcome {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--card-border);
+  transition: all var(--transition-speed) ease;
+}
+
+.fstt-dashboard-welcome h2 {
+  margin-top: 0;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.fstt-dashboard-welcome p {
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+.fstt-dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.fstt-stat-card {
+  background-color: var(--stat-card-bg);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--stat-card-shadow);
+  transition: all var(--transition-speed) ease;
+  border: 1px solid var(--card-border);
+}
+
+.fstt-stat-card h3 {
+  font-size: 2rem;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  color: var(--stat-card-value);
+}
+
+.fstt-stat-card p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.fstt-dashboard-role-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.fstt-dashboard-card {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--card-border);
+  transition: all var(--transition-speed) ease;
+}
+
+.fstt-dashboard-card h3 {
+  margin-top: 0;
+  color: var(--text-primary);
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.fstt-dashboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fstt-dashboard-list li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.fstt-dashboard-list li:last-child {
+  border-bottom: none;
+}
+
+.fstt-dashboard-empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.fstt-admin-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.fstt-admin-quick-actions button {
+  flex: 1 1 auto;
+  min-width: 180px;
+}
+
+/* RTL Support */
+[dir="rtl"] .fstt-badge {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fstt-dashboard-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .fstt-dashboard-role-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .fstt-dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+}
