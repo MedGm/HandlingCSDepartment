@@ -59,11 +59,11 @@ const Incidents = () => {
   });
 
   if (loading) {
-    return <div className="fstt-loading">{t('common.loading')}</div>;
+    return <div className="fstt-loading ns">{t('common.loading')}</div>;
   }
 
   return (
-    <div className="fstt-incidents">
+    <div className="fstt-incidents ns">
       <h1>{t('incidents.title')}</h1>
       
       <div className="fstt-incidents-controls">

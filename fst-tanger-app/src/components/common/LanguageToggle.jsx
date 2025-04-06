@@ -22,7 +22,7 @@ const LanguageToggle = () => {
       onClick={toggleLanguage}
       aria-label={i18n.language === 'fr' ? 'Switch to Arabic' : 'Passer au français'}
     >
-      {i18n.language === 'fr' ? 'العربية' : 'FR'}
+      {i18n.language === 'fr' ? 'ع' : 'FR'}
     </button>
   );
 };

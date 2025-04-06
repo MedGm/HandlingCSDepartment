@@ -1,0 +1,83 @@
+@startuml
+title Diagramme de Classes Préliminaire - Gestion du Département de Génie Informatique
+
+' Abstract class for common user attributes and methods
+abstract class Utilisateur {
+    - id : int
+    - nom : string
+    - prenom : string
+    - email : string
+    - login : string
+    - password : string
+    + authentifier() : bool
+}
+
+' Subclasses inheriting from Utilisateur
+class Enseignant {
+    - grade : string
+    - specialite : string
+    - disponibilites : string
+    + enseignerCours()
+    + consulterPlanning()
+    + AffecterProjet()
+    + consulterSalle()
+    + informerEtudiantsExamens()
+    + preparerExamens()
+}
+
+class Etudiant {
+    - matricule : string
+    - niveau : int
+    - programme : string
+    + consulterCours()
+    + inscrireCours()
+    + effectuerAssignment()
+}
+
+class Administration {
+    - fonction : string
+    - serviceAttribution : string
+    + gererUtilisateur()
+    + validerModification()
+}
+
+' New class to represent researchers who interact with labs
+class Chercheur {
+    - domaineRecherche : string
+    + menerRecherche()
+    + publierResultats()
+}
+
+' Classes for other modules
+class Labo {
+    - nom : string
+    - localisation : string
+    - equipements : string
+    + planifierSession()
+    + gererEquipement()
+}
+
+class Service {
+    - id : int
+    - nom : string
+    - description : string
+    - responsable : string
+    + gererDemande()
+    + fournirSupport()
+}
+
+' Inheritance relationships
+Utilisateur <|-- Enseignant
+Utilisateur <|-- Etudiant
+Utilisateur <|-- Administration
+Utilisateur <|-- Chercheur
+
+' Associations between modules
+Chercheur --> Labo : "travaille dans (1..*)"
+Etudiant --> Service : "fait appel à"
+Administration --> Enseignant : "supervise"
+Administration --> Etudiant : "supervise"
+Administration --> Labo : "supervise"
+Administration --> Service : "supervise"
+
+@enduml

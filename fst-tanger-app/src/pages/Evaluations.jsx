@@ -401,7 +401,7 @@ const Evaluations = () => {
     }, [selectedStudent, selectedCourse]);
     
     return (
-      <div className={`fstt-modal ${showModal.studentDetails ? 'show' : ''}`}>
+      <div className={`fstt-modal ${showModal.studentDetails ? 'show' : ''} ns`}>
         <div className="fstt-modal-content">
           <div className="fstt-modal-header">
             <h3>{selectedStudent.nom}</h3>
@@ -486,7 +486,7 @@ const Evaluations = () => {
   
   // New evaluation modal
   const NewEvaluationModal = () => (
-    <div className={`fstt-modal ${showModal.newEvaluation ? 'show' : ''}`}>
+    <div className={`fstt-modal ${showModal.newEvaluation ? 'show' : ''} ns`}>
       <div className="fstt-modal-content">
         <div className="fstt-modal-header">
           <h3>{t('evaluations.newEvaluation')}</h3>
@@ -564,7 +564,7 @@ const Evaluations = () => {
     if (!selectedEvaluation) return null;
     
     return (
-      <div className={`fstt-modal ${showModal.enterGrades ? 'show' : ''}`}>
+      <div className={`fstt-modal ${showModal.enterGrades ? 'show' : ''} ns`}>
         <div className="fstt-modal-content">
           <div className="fstt-modal-header">
             <h3>{t('evaluations.enterGrades')} - {selectedEvaluation.type}</h3>
@@ -635,7 +635,7 @@ const Evaluations = () => {
   
   // Validate course modal for final deliberations
   const ValidateCourseModal = () => (
-    <div className={`fstt-modal ${showModal.validateCourse ? 'show' : ''}`}>
+    <div className={`fstt-modal ${showModal.validateCourse ? 'show' : ''} ns`}>
       <div className="fstt-modal-content">
         <div className="fstt-modal-header">
           <h3>{t('evaluations.validateCourseTitle')}</h3>
@@ -665,11 +665,11 @@ const Evaluations = () => {
   );
   
   if (loading && !courses.length) {
-    return <div className="fstt-loading">{t('common.loading')}</div>;
+    return <div className="fstt-loading ns">{t('common.loading')}</div>;
   }
   
   return (
-    <div className="fstt-evaluations">
+    <div className="fstt-evaluations ns">
       <h1>{t('evaluations.title')}</h1>
       
       <div className="fstt-evaluations-header">

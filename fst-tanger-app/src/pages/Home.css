@@ -50,7 +50,12 @@
   margin-bottom: 2rem;
   opacity: 0.9;
 }
-
+.ns {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
 /* Enhanced Primary Button specifically for hero section */
 .fstt-hero .fstt-btn.fstt-btn-primary {
   padding: 0.75rem 1.75rem;

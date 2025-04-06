@@ -51,6 +51,9 @@ function App() {
             console.error('Error initializing database with sample data:', initError);
           }
         }
+        else {
+          console.log("Database not initialized.")
+        }
         
         setDbInitialized(true);
       } catch (error) {

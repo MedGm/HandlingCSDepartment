@@ -8,7 +8,12 @@
   margin-bottom: 1.5rem;
   color: var(--text-primary);
 }
-
+.ns {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
 .fstt-users-controls {
   display: flex;
   justify-content: space-between;

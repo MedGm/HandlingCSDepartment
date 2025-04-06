@@ -153,7 +153,7 @@ const Profile = () => {
   // Not logged in
   if (!currentUser) {
     return (
-      <div className="fstt-profile-not-logged-in">
+      <div className="fstt-profile-not-logged-in ns">
         <h2>{t('profile.notLoggedIn')}</h2>
         <p>{t('profile.pleaseLogin')}</p>
       </div>
@@ -162,11 +162,11 @@ const Profile = () => {
   
   // Loading state
   if (loading) {
-    return <div className="fstt-loading">{t('common.loading')}</div>;
+    return <div className="fstt-loading ns">{t('common.loading')}</div>;
   }
 
   return (
-    <div className="fstt-profile">
+    <div className="fstt-profile ns">
       <h1>{t('nav.profile')}</h1>
       
       <div className="fstt-profile-content">
@@ -178,7 +178,6 @@ const Profile = () => {
           <div className="fstt-profile-header-info">
             <h2>{profileData.nom}</h2>
             <p className="fstt-profile-email">{profileData.email}</p>
-            <span className="fstt-badge fstt-role-badge">{profileData.role}</span>
           </div>
           <div className="fstt-profile-actions">
             {!editing ? (
@@ -293,6 +292,12 @@ const Profile = () => {
                   <span className="fstt-profile-field-label">{t('profile.phone')}</span>
                   <span className="fstt-profile-field-value">{profileData.telephone}</span>
                 </div>
+              )}
+              {profileData.role && (
+              <div className="fstt-profile-field">
+                <span className="fstt-profile-field-label">{t('Role')}</span>
+                <span className="fstt-profile-field-value">{profileData.role}</span>
+              </div>
               )}
             </div>
             

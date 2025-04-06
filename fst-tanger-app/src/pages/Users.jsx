@@ -331,7 +331,7 @@ const Users = () => {
 
   // Add User Modal
   const addUserModal = (
-    <div className={`fstt-modal ${showAddModal ? 'show' : ''}`}>
+    <div className={`fstt-modal ${showAddModal ? 'show' : ''} ns`}>
       <div className="fstt-modal-content">
         <div className="fstt-modal-header">
           <h3>{t('users.addUser')}</h3>
@@ -419,7 +419,7 @@ const Users = () => {
 
   // Edit User Modal
   const editUserModal = (
-    <div className={`fstt-modal ${showEditModal ? 'show' : ''}`}>
+    <div className={`fstt-modal ${showEditModal ? 'show' : ''} ns`}>
       <div className="fstt-modal-content">
         <div className="fstt-modal-header">
           <h3>{t('users.editUser')}</h3>
@@ -479,7 +479,7 @@ const Users = () => {
 
   // Delete User Modal
   const deleteUserModal = (
-    <div className={`fstt-modal ${showDeleteModal ? 'show' : ''}`}>
+    <div className={`fstt-modal ${showDeleteModal ? 'show' : ''} ns`}>
       <div className="fstt-modal-content">
         <div className="fstt-modal-header">
           <h3>{t('users.deleteUser')}</h3>
@@ -506,7 +506,7 @@ const Users = () => {
       !hasRole(ROLES.ADMIN) && 
       !hasRole(ROLES.COORDINATEUR)) {
     return (
-      <div className="fstt-admin-access-denied">
+      <div className="fstt-admin-access-denied ns">
         <h2>{t('common.accessDenied')}</h2>
         <p>{t('common.adminOnly')}</p>
       </div>
@@ -518,7 +518,7 @@ const Users = () => {
   }
 
   return (
-    <div className="fstt-users">
+    <div className="fstt-users ns">
       <h1>{t('nav.users')}</h1>
       
       <div className="fstt-users-controls">

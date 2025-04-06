@@ -11,6 +11,12 @@
   color: var(--text-primary);
 }
 
+.ns {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
 .fstt-dashboard-welcome {
   background-color: var(--card-bg);
   border-radius: 0.5rem;

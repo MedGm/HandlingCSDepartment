@@ -3,7 +3,12 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
+.ns {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
 .fstt-admin h1 {
   margin-bottom: 1.5rem;
   color: var(--text-primary);
