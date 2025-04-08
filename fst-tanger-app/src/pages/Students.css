@@ -1,4 +1,4 @@
-/* Students page styles - similar to Courses.css but can be customized */
+/* Students page styles */
 .fstt-students {
   padding: 1.5rem;
   max-width: 1200px;
@@ -10,12 +10,14 @@
   font-size: 1.75rem;
   color: var(--text-primary);
 }
+
 .ns {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
 }
+
 .fstt-students-controls {
   display: flex;
   justify-content: space-between;
@@ -102,6 +104,643 @@
   color: var(--text-muted);
 }
 
+/* Student Details */
+.fstt-student-details {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.fstt-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--card-header-bg);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.fstt-details-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.fstt-tab-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: all var(--transition-speed) ease;
+}
+
+.fstt-tab-btn:hover {
+  background-color: var(--hover-color);
+}
+
+.fstt-tab-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.fstt-details-content {
+  padding: 1.5rem;
+}
+
+.fstt-details-section {
+  margin-bottom: 2rem;
+}
+
+.fstt-details-section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.fstt-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.fstt-details-item {
+  margin-bottom: 0.5rem;
+}
+
+.fstt-details-item label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.fstt-details-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.fstt-details-actions {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+/* File Section */
+.fstt-student-file, 
+.fstt-student-absences,
+.fstt-student-grades,
+.fstt-student-internships {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.fstt-file-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.fstt-file-content, 
+.fstt-absences-content,
+.fstt-grades-content,
+.fstt-internships-content {
+  padding: 1.5rem;
+}
+
+.fstt-documents-table {
+  margin-top: 1rem;
+}
+
+.fstt-status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.fstt-status.valid {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.fstt-status.pending {
+  background-color: var(--warning-light);
+  color: var(--warning);
+}
+
+.fstt-status.invalid {
+  background-color: var(--danger-light);
+  color: var(--danger);
+}
+
+.fstt-file-missing {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* Modal Styles */
+.fstt-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.fstt-modal-content {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.fstt-modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.fstt-form-group {
+  margin-bottom: 1rem;
+}
+
+.fstt-form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.fstt-form-group input,
+.fstt-form-group select,
+.fstt-form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--input-border);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+}
+
+.fstt-form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.fstt-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Button colors */
+.fstt-btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: 1px solid var(--primary-color);
+}
+
+.fstt-btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.fstt-btn-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+  border: 1px solid var(--secondary-color);
+}
+
+.fstt-btn-secondary:hover {
+  background-color: var(--secondary-dark);
+  border-color: var(--secondary-dark);
+}
+
+.fstt-btn-success {
+  background-color: var(--success);
+  color: white;
+  border: 1px solid var(--success);
+}
+
+.fstt-btn-success:hover {
+  background-color: var(--success-dark);
+  border-color: var(--success-dark);
+}
+
+.fstt-btn-danger {
+  background-color: var(--danger);
+  color: white;
+  border: 1px solid var(--danger);
+}
+
+.fstt-btn-danger:hover {
+  background-color: var(--danger-dark);
+  border-color: var(--danger-dark);
+}
+
+/* Additional student management styles */
+.fstt-student-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.fstt-progress-bar {
+  flex: 1;
+  height: 0.75rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.fstt-progress-value {
+  height: 100%;
+  background-color: var(--success);
+  border-radius: 1rem;
+  transition: width 0.3s ease;
+}
+
+.fstt-progress-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Document cards for student files */
+.fstt-documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.fstt-document-card {
+  border: 1px solid var(--card-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.fstt-document-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.fstt-document-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.fstt-document-type {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.fstt-document-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.fstt-document-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* Registration workflow steps */
+.fstt-steps {
+  display: flex;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.fstt-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+  min-width: 90px;
+}
+
+.fstt-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background-color: var(--border-color);
+  z-index: 0;
+}
+
+.fstt-step-icon {
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  z-index: 1;
+  color: var(--text-secondary);
+  transition: all var(--transition-speed) ease;
+}
+
+.fstt-step.completed .fstt-step-icon {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.fstt-step.current .fstt-step-icon {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.fstt-step.completed:not(:last-child)::after {
+  background-color: var(--success);
+}
+
+.fstt-step-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 0.25rem;
+  white-space: nowrap;
+}
+
+.fstt-step.current .fstt-step-label {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Academic calendar */
+.fstt-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.fstt-calendar-header {
+  grid-column: span 7;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.fstt-calendar-day {
+  aspect-ratio: 1;
+  padding: 0.25rem;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  position: relative;
+}
+
+.fstt-calendar-today {
+  background-color: var(--primary-light);
+  border-color: var(--primary-color);
+  font-weight: 500;
+}
+
+.fstt-calendar-event {
+  background-color: var(--warning-light);
+  border-color: var(--warning);
+  cursor: pointer;
+}
+
+.fstt-calendar-absence {
+  background-color: var(--danger-light);
+  border-color: var(--danger);
+}
+
+.fstt-calendar-exam {
+  background-color: var(--success-light);
+  border-color: var(--success);
+}
+
+.fstt-calendar-badge {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.fstt-calendar-badge.event {
+  background-color: var(--warning);
+}
+
+.fstt-calendar-badge.absence {
+  background-color: var(--danger);
+}
+
+.fstt-calendar-badge.exam {
+  background-color: var(--success);
+}
+
+/* Student grades visualization */
+.fstt-grades-chart {
+  height: 200px;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  position: relative;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.fstt-grade-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.fstt-grade-value {
+  background-color: var(--primary-color);
+  width: 2rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+  transition: height var(--transition-speed) ease;
+}
+
+.fstt-grade-label {
+  position: absolute;
+  bottom: -1.5rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+}
+
+.fstt-grade-score {
+  position: absolute;
+  top: -1.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.fstt-grade-threshold {
+  position: absolute;
+  width: 100%;
+  border-top: 2px dashed var(--danger);
+  left: 0;
+}
+
+.fstt-grade-threshold-label {
+  position: absolute;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--danger);
+  background-color: var(--card-bg);
+  padding: 0 0.25rem;
+}
+
+/* Stage follow-up timeline */
+.fstt-timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 1.5rem 0;
+}
+
+.fstt-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0.75rem;
+  width: 2px;
+  background-color: var(--border-color);
+}
+
+.fstt-timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.fstt-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.fstt-timeline-icon {
+  position: absolute;
+  left: -2rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  z-index: 1;
+}
+
+.fstt-timeline-item.completed .fstt-timeline-icon {
+  background-color: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+.fstt-timeline-item.current .fstt-timeline-icon {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.fstt-timeline-content {
+  padding: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--border-color);
+}
+
+.fstt-timeline-item.completed .fstt-timeline-content {
+  border-left-color: var(--success);
+}
+
+.fstt-timeline-item.current .fstt-timeline-content {
+  border-left-color: var(--primary-color);
+}
+
+.fstt-timeline-date {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.fstt-timeline-title {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.fstt-timeline-description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .fstt-students-controls {
@@ -126,10 +765,83 @@
     padding: 0.25rem 0.5rem;
     font-size: 0.8rem;
   }
+  
+  .fstt-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .fstt-details-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .fstt-tab-btn {
+    flex: 1;
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .fstt-details-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fstt-file-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .fstt-documents-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+  
+  .fstt-steps {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
 }
 
 /* RTL support */
 [dir="rtl"] .fstt-table th, 
 [dir="rtl"] .fstt-table td {
   text-align: right;
+}
+
+[dir="rtl"] .fstt-timeline {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+[dir="rtl"] .fstt-timeline::before {
+  left: auto;
+  right: 0.75rem;
+}
+
+[dir="rtl"] .fstt-timeline-icon {
+  left: auto;
+  right: -2rem;
+}
+
+[dir="rtl"] .fstt-timeline-content {
+  border-left: none;
+  border-right: 3px solid var(--border-color);
+}
+
+[dir="rtl"] .fstt-timeline-item.completed .fstt-timeline-content {
+  border-right-color: var(--success);
+}
+
+[dir="rtl"] .fstt-timeline-item.current .fstt-timeline-content {
+  border-right-color: var(--primary-color);
+}
+
+[dir="rtl"] .fstt-form-actions {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .fstt-step:not(:last-child)::after {
+  left: auto;
+  right: 50%;
 }

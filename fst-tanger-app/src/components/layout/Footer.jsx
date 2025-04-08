@@ -14,7 +14,7 @@ const Footer = () => {
       <div className="fstt-footer-content">
         <div className="fstt-footer-logo ns">
           <img
-            src='/assets/logo-fst.png'
+            src='/assets/fstt-logo.png'
             alt="FST Tanger"
           />
         </div>

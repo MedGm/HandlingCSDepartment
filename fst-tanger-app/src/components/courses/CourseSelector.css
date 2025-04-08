@@ -1,0 +1,102 @@
+.fstt-course-selector {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.fstt-course-selector:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.fstt-course-selector-header {
+  padding: 1rem;
+  background: linear-gradient(to right, rgba(var(--accent-color-rgb, 0, 81, 155), 0.1), transparent);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fstt-course-selector-header h3 {
+  margin: 0;
+  color: var(--accent-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.fstt-course-selector-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.fstt-course-selector-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.fstt-course-selector-item:last-child {
+  border-bottom: none;
+}
+
+.fstt-course-selector-item:hover {
+  background: linear-gradient(to right, rgba(var(--accent-color-rgb, 0, 81, 155), 0.05), transparent);
+}
+
+.fstt-course-selector-item.selected {
+  background: linear-gradient(to right, rgba(var(--accent-color-rgb, 0, 81, 155), 0.1), rgba(var(--accent-color-rgb, 0, 81, 155), 0.02));
+  border-left: 3px solid var(--accent-color);
+}
+
+.fstt-course-selector-info {
+  flex: 1;
+}
+
+.fstt-course-selector-code {
+  font-weight: 600;
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.fstt-course-selector-title {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.fstt-course-selector-meta {
+  margin-top: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.fstt-course-selector-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Dark theme enhancements */
+[data-theme="dark"] .fstt-course-selector {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .fstt-course-selector-header {
+  background: linear-gradient(to right, rgba(var(--accent-color-rgb, 0, 81, 155), 0.2), transparent);
+}
+
+[data-theme="dark"] .fstt-course-selector-item:hover {
+  background: linear-gradient(to right, rgba(var(--accent-color-rgb, 0, 81, 155), 0.1), transparent);
+}
+
+[data-theme="dark"] .fstt-course-selector-item.selected {
+  background: linear-gradient(to right, rgba(var(--accent-color-rgb, 0, 81, 155), 0.15), rgba(var(--accent-color-rgb, 0, 81, 155), 0.05));
+}

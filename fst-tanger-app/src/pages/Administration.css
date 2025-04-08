@@ -79,7 +79,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background-color: var(--accent-color);
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
 }
 
 .fstt-admin-tab-content {
@@ -279,6 +279,250 @@
   color: var(--text-danger);
 }
 
+/* Material Management styles */
+.fstt-admin-loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.fstt-admin-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fstt-admin-alert {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.fstt-admin-alert h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.fstt-admin-alert p {
+  margin-bottom: 0.5rem;
+}
+
+.fstt-admin-alert-success {
+  background-color: rgba(76, 175, 80, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: #2e7d32;
+}
+
+.fstt-admin-alert-warning {
+  background-color: rgba(255, 152, 0, 0.15);
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  color: #f57c00;
+}
+
+.fstt-admin-alert-danger {
+  background-color: rgba(244, 67, 54, 0.15);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  color: #d32f2f;
+}
+
+.fstt-status-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.fstt-status-badge.available {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.fstt-status-badge.unavailable {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #d32f2f;
+}
+
+.fstt-status-badge.maintenance {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #f57c00;
+}
+
+.fstt-status-badge.pending {
+  background-color: rgba(33, 150, 243, 0.15);
+  color: #1976d2;
+}
+
+.fstt-status-badge.validated {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.fstt-admin-material-request,
+.fstt-admin-budget-request {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+}
+
+.fstt-admin-submitted {
+  background-color: rgba(33, 150, 243, 0.1);
+}
+
+.fstt-admin-approved {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.fstt-admin-rejected {
+  background-color: rgba(244, 67, 54, 0.1);
+}
+
+/* Budget Management styles */
+.fstt-admin-budget-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.fstt-admin-budget-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.fstt-admin-budget-card h4 {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.fstt-admin-budget-amount {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fstt-admin-budget-chart {
+  margin: 1.5rem 0;
+}
+
+.fstt-admin-budget-bar {
+  height: 24px;
+  background-color: var(--bg-tertiary);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.fstt-admin-budget-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+  border-radius: 12px;
+  transition: width 0.5s ease-in-out;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.fstt-admin-budget-info {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Course Management styles */
+.fstt-admin-conflicts-list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.fstt-admin-conflicts-list li {
+  margin-bottom: 1rem;
+}
+
+.fstt-admin-conflicts-list p {
+  margin: 0.25rem 0;
+  padding-left: 1rem;
+}
+
+/* Meetings Management styles */
+.fstt-admin-meetings-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.fstt-admin-meetings-form h4,
+.fstt-admin-meetings-list h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.fstt-admin-form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.fstt-admin-form-row .fstt-admin-form-group {
+  flex: 1;
+}
+
+.fstt-admin-meetings-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.fstt-admin-meeting-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.fstt-admin-meeting-card h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.fstt-admin-meeting-card p {
+  margin: 0.5rem 0;
+}
+
+.fstt-admin-meeting-agenda {
+  margin-top: 1rem;
+}
+
+.fstt-admin-meeting-agenda p {
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--accent-color);
+}
+
+.fstt-admin-empty-message {
+  margin: 2rem 0;
+  text-align: center;
+  color: var(--text-muted);
+}
+
 @media (max-width: 768px) {
   .fstt-admin-tab-header {
     padding: 0 0.5rem;
@@ -303,5 +547,18 @@
   
   .fstt-admin-config-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .fstt-admin-meetings-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .fstt-admin-meetings-form {
+    margin-bottom: 2rem;
+  }
+  
+  .fstt-admin-form-row {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

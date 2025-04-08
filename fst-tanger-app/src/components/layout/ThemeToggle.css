@@ -2,24 +2,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
   border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
-  color: inherit;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  margin: 0 5px;
-  padding: 0;
   transition: background-color 0.2s;
+  padding: 0;
 }
 
 .theme-toggle-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.theme-toggle-btn svg {
-  stroke: currentColor;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 [dir="rtl"] .theme-toggle-btn {

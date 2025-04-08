@@ -10,6 +10,7 @@
   font-size: 1.75rem;
   color: var(--text-primary);
 }
+
 .ns {
   user-select: none;
   -webkit-user-select: none;
@@ -17,6 +18,49 @@
   -moz-user-select: none;
 }
 
+/* Tabs */
+.fstt-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.25rem;
+}
+
+.fstt-tab {
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  border-radius: 0.25rem 0.25rem 0 0;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.fstt-tab:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-hover);
+}
+
+.fstt-tab.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.fstt-tab.active:after {
+  content: '';
+  position: absolute;
+  bottom: -0.25rem;
+  left: 0;
+  width: 100%;
+  height: 0.25rem;
+  background-color: var(--primary);
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+/* Controls */
 .fstt-resources-controls {
   display: flex;
   justify-content: space-between;
@@ -26,6 +70,21 @@
   gap: 1rem;
 }
 
+.fstt-search {
+  flex: 1;
+  max-width: 400px;
+}
+
+.fstt-search input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 .fstt-filter {
   display: flex;
   align-items: center;
@@ -33,148 +92,398 @@
 }
 
 .fstt-filter label {
-  color: var(--text-secondary);
   font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .fstt-filter select {
   padding: 0.5rem;
-  border: 1px solid var(--input-border);
+  border: 1px solid var(--border-color);
   border-radius: 0.25rem;
-  font-size: 1rem;
-  background-color: var(--input-bg);
-  color: var(--input-text);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
+/* Resources list */
 .fstt-resources-list {
-  background-color: var(--card-bg);
+  background-color: var(--bg-secondary);
   border-radius: 0.5rem;
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--card-border);
+  border: 1px solid var(--border-color);
   overflow: hidden;
-  transition: all var(--transition-speed) ease;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
 }
 
+/* Table */
 .fstt-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.fstt-table th, .fstt-table td {
-  padding: 12px 15px;
+.fstt-table th,
+.fstt-table td {
+  padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--table-border);
-  transition: border-color 0.3s ease;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .fstt-table th {
-  background-color: var(--table-header-bg);
-  color: var(--text-primary);
-  font-weight: 500;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.fstt-table tr:hover {
   background-color: var(--bg-tertiary);
-  transition: background-color 0.3s ease;
-}
-
-.fstt-btn {
-  background-color: var(--button-primary-bg);
-  color: var(--button-primary-text);
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.fstt-btn:hover {
-  background-color: var(--accent-hover);
-}
-
-.fstt-empty {
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 20px;
-  font-style: italic;
-  transition: color 0.3s ease;
-}
-
-.fstt-loading {
-  text-align: center;
-  padding: 20px;
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
-}
-
-/* Status badges */
-.fstt-badge {
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
   font-weight: 600;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: var(--text-primary);
 }
 
-/* Light mode badges */
-.fstt-badge.status-disponible {
-  background-color: #e8f5e9;
-  color: #2e7d32;
+.fstt-table tr:last-child td {
+  border-bottom: none;
 }
 
-/* Dark mode badges */
-[data-theme="dark"] .fstt-badge.status-disponible {
-  background-color: rgba(46, 125, 50, 0.2);
-  color: #81c784;
+.fstt-table tr:hover td {
+  background-color: var(--bg-hover);
 }
 
-.fstt-badge.status-occupé {
-  background-color: #fff8e1;
-  color: #f57f17;
-}
-
-[data-theme="dark"] .fstt-badge.status-occupé {
-  background-color: rgba(245, 127, 23, 0.2);
-  color: #ffb74d;
-}
-
-.fstt-badge.status-hors-service {
-  background-color: #ffebee;
-  color: #c62828;
-}
-
-[data-theme="dark"] .fstt-badge.status-hors-service {
-  background-color: rgba(198, 40, 40, 0.2);
-  color: #e57373;
-}
-
-/* Unknown status */
-.fstt-badge.status-unknown {
-  background-color: #f5f5f5;
-  color: #757575;
-}
-
-[data-theme="dark"] .fstt-badge.status-unknown {
-  background-color: rgba(117, 117, 117, 0.2);
-  color: #bdbdbd;
+/* Badges */
+.fstt-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
 }
 
 .status-available {
-  background-color: var(--badge-bg-success);
-  color: var(--badge-text-success);
+  background-color: var(--success-light);
+  color: var(--success);
 }
 
 .status-unavailable {
-  background-color: var(--badge-bg-danger);
-  color: var(--badge-text-danger);
+  background-color: var(--danger-light);
+  color: var(--danger);
+}
+
+.status-en-attente {
+  background-color: var(--warning-light);
+  color: var(--warning);
+}
+
+.status-acceptée {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.status-refusée {
+  background-color: var(--danger-light);
+  color: var(--danger);
+}
+
+.status-annulée {
+  background-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+/* Buttons */
+.fstt-btn {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-right: 0.25rem;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.fstt-btn:hover {
+  background-color: var(--bg-hover);
+}
+
+.fstt-btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.fstt-btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.fstt-btn-success {
+  background-color: var(--success);
+  color: white;
+}
+
+.fstt-btn-success:hover {
+  background-color: var(--success-dark);
+}
+
+.fstt-btn-danger {
+  background-color: var(--danger);
+  color: white;
+}
+
+.fstt-btn-danger:hover {
+  background-color: var(--danger-dark);
+}
+
+.fstt-btn-warning {
+  background-color: var(--warning);
+  color: white;
+}
+
+.fstt-btn-warning:hover {
+  background-color: var(--warning-dark);
+}
+
+.fstt-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Empty state */
+.fstt-empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* Loading state */
+.fstt-loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* Alert messages */
+.fstt-alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fstt-alert-error {
+  background-color: var(--danger-light);
+  color: var(--danger);
+  border-left: 4px solid var(--danger);
+}
+
+.fstt-alert-success {
+  background-color: var(--success-light);
+  color: var(--success);
+  border-left: 4px solid var(--success);
+}
+
+.fstt-alert-warning {
+  background-color: var(--warning-light);
+  color: var(--warning);
+  border-left: 4px solid var(--warning);
+}
+
+.fstt-alert-close {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  color: inherit;
+}
+
+.fstt-alert-close:hover {
+  opacity: 1;
+}
+
+/* Modals */
+.fstt-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.fstt-modal-content {
+  background-color: var(--bg-primary);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.fstt-modal-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fstt-modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.fstt-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.fstt-modal-close:hover {
+  color: var(--text-primary);
+}
+
+.fstt-modal-body {
+  padding: 1.25rem;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Form styles */
+.fstt-form-group {
+  margin-bottom: 1rem;
+}
+
+.fstt-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.fstt-form-group input,
+.fstt-form-group select,
+.fstt-form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.fstt-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.fstt-form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fstt-form-row .fstt-form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.fstt-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.fstt-form-error {
+  color: var(--danger);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: var(--danger-light);
+  border-radius: 0.25rem;
+}
+
+/* Resource details */
+.fstt-resource-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.fstt-detail-group {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fstt-detail-group label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.fstt-detail-group p {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+/* Reservation decision */
+.fstt-reservation-decision {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.fstt-reservation-decision h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.fstt-decision-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 /* RTL support */
-[dir="rtl"] .fstt-table th, 
+[dir="rtl"] .fstt-table th,
 [dir="rtl"] .fstt-table td {
   text-align: right;
+}
+
+[dir="rtl"] .fstt-btn {
+  margin-right: 0;
+  margin-left: 0.25rem;
+}
+
+[dir="rtl"] .fstt-detail-group {
+  grid-template-columns: 1fr 150px;
+}
+
+[dir="rtl"] .fstt-form-actions {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .fstt-alert-error,
+[dir="rtl"] .fstt-alert-success,
+[dir="rtl"] .fstt-alert-warning {
+  border-left: none;
+  border-right: 4px solid;
 }
 
 /* Responsive adjustments */
@@ -185,20 +494,50 @@
     gap: 1rem;
   }
 
+  .fstt-search {
+    max-width: none;
+  }
+
   .fstt-filter {
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
   }
-
+  
   .fstt-filter select {
     width: 100%;
   }
-
+  
+  .fstt-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+  }
+  
+  .fstt-tab {
+    white-space: nowrap;
+    flex: 1;
+    text-align: center;
+  }
+  
   .fstt-table-container {
     overflow-x: auto;
   }
-
+  
   .fstt-table {
-    min-width: 600px;
+    min-width: 650px;
+  }
+  
+  .fstt-form-row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .fstt-detail-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .fstt-detail-group label {
+    font-size: 0.85rem;
   }
 }

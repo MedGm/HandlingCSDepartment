@@ -18,8 +18,8 @@ import Users from './pages/Users';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import Evaluations from './pages/Evaluations';
+import Laboratory from './pages/Labo';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-
 import './App.css';
 
 /**
@@ -52,7 +52,7 @@ function App() {
           }
         }
         else {
-          console.log("Database not initialized.")
+          console.log("Database already initialized.");
         }
         
         setDbInitialized(true);
@@ -124,6 +124,12 @@ function App() {
                   <Evaluations />
                 </ProtectedRoute>
               } />
+              {/* Laboratory route with proper role protection - Updated to include CHEF_DEPARTEMENT */}
+              <Route path="laboratory" element={
+                <ProtectedRoute requiredRoles={['CHEF_LABO', 'CHERCHEUR', 'ENSEIGNANT', 'ADMIN', 'CHEF_DEPARTEMENT']}>
+                  <Laboratory />
+                </ProtectedRoute>
+              } />
               <Route path="administration" element={
                 <ProtectedRoute adminOnly>
                   <Administration />
@@ -146,11 +152,9 @@ function App() {
               } />
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </Router>
+          </Routes>        
+          </Router>
       </ThemeProvider>
     </AuthProvider>
-  );
-}
-
+  );}
 export default App;

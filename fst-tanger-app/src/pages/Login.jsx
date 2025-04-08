@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
+import Registration from './Registration';
 import './Login.css';
 
 /**
  * Login page component
- * Handles user authentication using JWT
+ * Handles user authentication using JWT and student registration
  */
 const Login = () => {
   const { t, i18n } = useTranslation();
@@ -19,6 +20,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showExamples, setShowExamples] = useState(false);
+  const [showRegistration, setShowRegistration] = useState(false);
   
   // Hardcoded example emails to avoid database issues
   const exampleEmails = [
@@ -31,11 +33,11 @@ const Login = () => {
   
   // Redirect if already logged in
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && !showRegistration) {
       const from = location.state?.from?.pathname || '/dashboard';
       navigate(from, { replace: true });
     }
-  }, [currentUser, navigate, location]);
+  }, [currentUser, navigate, location, showRegistration]);
   
   const toggleLanguage = () => {
     const newLang = i18n.language === 'fr' ? 'ar' : 'fr';
@@ -70,6 +72,16 @@ const Login = () => {
     setEmail(exampleEmail);
     setPassword('password');  // Set a dummy password
   };
+
+  const toggleRegistration = () => {
+    setShowRegistration(!showRegistration);
+    // Clear any error messages when switching modes
+    setErrorMessage('');
+  };
+  
+  if (showRegistration) {
+    return <Registration onBackToLogin={toggleRegistration} />;
+  }
   
   return (
     <div className="fstt-login-container ns">
@@ -81,7 +93,7 @@ const Login = () => {
       
       <div className="fstt-login-card">
         <div className="fstt-login-header">
-          <img src="/assets/logo-fst.png" alt="FSTT Logo" className="fstt-login-logo" onError={(e) => e.target.src = '/favicon.ico'} />
+          <img src="/assets/fstt-logo.png" alt="FSTT Logo" className="fstt-login-logo" onError={(e) => e.target.src = '/favicon.ico'} />
           <h1>{t('department.title')}</h1>
           <h2>{t('department.fullName')}</h2>
         </div>
@@ -125,6 +137,14 @@ const Login = () => {
             disabled={loading}
           >
             {loading ? t('common.loading') : t('auth.loginButton')}
+          </button>
+
+          <button
+            type="button"
+            className="fstt-register-button"
+            onClick={toggleRegistration}
+          >
+            {t('registration.newStudent')}
           </button>
           
           <div className="fstt-login-examples">

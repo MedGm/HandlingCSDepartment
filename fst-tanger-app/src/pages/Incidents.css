@@ -10,12 +10,14 @@
   font-size: 1.75rem;
   color: var(--text-primary);
 }
+
 .ns {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
 }
+
 .fstt-incidents-controls {
   display: flex;
   justify-content: space-between;
@@ -23,6 +25,37 @@
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.fstt-search {
+  flex: 1;
+  max-width: 400px;
+}
+
+.fstt-search input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.fstt-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fstt-filter label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.fstt-filter select {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  background-color: var(--bg-secondary);
 }
 
 .fstt-incidents-list {
@@ -38,6 +71,7 @@
 .fstt-incidents-actions {
   display: flex;
   justify-content: flex-end;
+  margin-top: 1rem;
 }
 
 .fstt-table {
@@ -48,36 +82,65 @@
 .fstt-table th, .fstt-table td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .fstt-table th {
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
   font-weight: 500;
 }
 
 .fstt-table tr:hover {
-  background-color: #f9f9f9;
+  background-color: var(--bg-hover);
 }
 
 .fstt-btn {
-  background-color: #00519b;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
+  margin-right: 0.5rem;
+  transition: background-color 0.2s ease;
 }
 
 .fstt-btn:hover {
-  background-color: #003d73;
+  background-color: var(--button-hover-bg);
+}
+
+.fstt-btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.fstt-btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.fstt-btn-success {
+  background-color: var(--success);
+  color: white;
+}
+
+.fstt-btn-success:hover {
+  background-color: var(--success-dark);
+}
+
+.fstt-btn-danger {
+  background-color: var(--danger);
+  color: white;
+}
+
+.fstt-btn-danger:hover {
+  background-color: var(--danger-dark);
 }
 
 .fstt-empty {
   text-align: center;
-  color: #999;
+  color: var(--text-secondary);
   padding: 20px;
   font-style: italic;
 }
@@ -85,7 +148,7 @@
 .fstt-loading {
   text-align: center;
   padding: 20px;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 /* Priority and Status badges */
@@ -112,56 +175,89 @@
   color: var(--badge-text-info);
 }
 
-.status-en-cours,
 .status-en-cours {
-  background-color: var(--badge-bg-info);
-  color: var(--badge-text-info);
+  /* Placeholder for status styles */
 }
 
-.status-résolu,
-.status-résolu {
-  background-color: var(--badge-bg-success);
-  color: var(--badge-text-success);
+/* Priority badges */
+.fstt-priority-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  text-align: center;
 }
 
-.status-soumis {
-  background-color: var(--badge-bg-warning);
-  color: var(--badge-text-warning);
+.fstt-priority-high {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #d32f2f;
 }
 
-.status-clôturé {
-  background-color: var(--badge-bg-default);
-  color: var(--badge-text-default);
+.fstt-priority-medium {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #f57c00;
 }
 
-/* RTL support */
-[dir="rtl"] .fstt-table th, 
-[dir="rtl"] .fstt-table td {
-  text-align: right;
+.fstt-priority-low {
+  background-color: rgba(33, 150, 243, 0.15);
+  color: #1976d2;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .fstt-incidents-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-  }
+/* Status badges */
+.fstt-status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  text-align: center;
+}
 
-  .fstt-filter {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.fstt-status-pending {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #f57c00;
+}
 
-  .fstt-filter select {
-    width: 100%;
-  }
+.fstt-status-assigned {
+  background-color: rgba(33, 150, 243, 0.15);
+  color: #1976d2;
+}
 
-  .fstt-table-container {
-    overflow-x: auto;
-  }
+.fstt-status-in-progress {
+  background-color: rgba(156, 39, 176, 0.15);
+  color: #7b1fa2;
+}
 
-  .fstt-table {
-    min-width: 600px;
-  }
+.fstt-status-resolved {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.fstt-status-closed {
+  background-color: rgba(158, 158, 158, 0.15);
+  color: #616161;
+}
+
+/* Incident card styles */
+.fstt-incident-card {
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fstt-incident-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Incident header styles */
+.fstt-incident-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  background: linear-gradient(to right, rgba(var(--accent-color-rgb, 0, 81, 155), 0.05), transparent);
 }

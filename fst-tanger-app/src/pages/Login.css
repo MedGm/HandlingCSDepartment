@@ -210,6 +210,41 @@
   cursor: not-allowed;
 }
 
+.fstt-register-button {
+  padding: 14px;
+  margin-top: 0.5rem;
+  background: var(--secondary-color, #28a745);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fstt-register-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
+}
+
+.fstt-register-button:hover::before {
+  left: 100%;
+}
+
+.fstt-register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(40, 167, 69, 0.2);
+}
+
 .fstt-login-examples {
   margin-top: 1.5rem;
 }
@@ -320,4 +355,293 @@
 [dir="rtl"] .fstt-login-error {
   border-left: none;
   border-right: 3px solid #dc3545;
+}
+
+/* Registration Form Styles */
+.fstt-registration-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e6e9f0 100%);
+}
+
+.fstt-registration-card {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.5s ease-out;
+  position: relative;
+}
+
+.fstt-registration-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.fstt-registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.fstt-form-section {
+  margin-bottom: 1.5rem;
+}
+
+.fstt-form-section h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 0.5rem;
+}
+
+.fstt-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.fstt-form-description {
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.fstt-form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.fstt-form-footer {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.fstt-steps {
+  display: flex;
+  margin-bottom: 2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.fstt-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.fstt-step:not(:last-child):after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  width: 100%;
+  height: 2px;
+  background-color: var(--border-color);
+  right: -50%;
+  z-index: 1;
+}
+
+.fstt-step-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.fstt-step.active .fstt-step-icon {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.fstt-step.completed .fstt-step-icon {
+  background-color: var(--success);
+  color: white;
+  border-color: var(--success);
+}
+
+.fstt-step-label {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.fstt-step.active .fstt-step-label {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.fstt-formations-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.fstt-formation-card {
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.fstt-formation-card:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.fstt-formation-card.selected {
+  border-color: var(--primary-color);
+  background-color: rgba(var(--primary-rgb), 0.05);
+}
+
+.fstt-formation-selected {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fstt-documents-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.fstt-document-item {
+  border: 1px dashed var(--border-color);
+  padding: 1rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fstt-document-item.uploaded {
+  border-style: solid;
+  border-color: var(--success);
+}
+
+.fstt-document-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.fstt-document-item.uploaded .fstt-document-icon {
+  color: var(--success);
+}
+
+.fstt-document-label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.fstt-document-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.fstt-document-button {
+  background-color: var(--bg-tertiary);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.fstt-document-item.uploaded .fstt-document-button {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.fstt-registration-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.fstt-success-icon {
+  font-size: 3rem;
+  color: var(--success);
+  margin-bottom: 1rem;
+}
+
+.fstt-success-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.fstt-success-message {
+  max-width: 500px;
+  margin-bottom: 1.5rem;
+}
+
+/* Dark Theme Support */
+[data-theme='dark'] .fstt-registration-card,
+[data-theme='dark'] .fstt-registration-container {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .fstt-formation-card {
+  background-color: var(--bg-secondary);
+}
+
+[data-theme='dark'] .fstt-formation-card.selected {
+  background-color: rgba(var(--primary-rgb), 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .fstt-registration-card {
+    max-width: 95%;
+    padding: 1.5rem;
+  }
+  
+  .fstt-form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .fstt-formations-list,
+  .fstt-documents-list {
+    grid-template-columns: 1fr;
+  }
 }
