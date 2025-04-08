@@ -1,25 +1,34 @@
 /**
  * Models related to course management
- * Based on the UML class diagram
+ * Following the UML class diagram and sequence diagrams
  */
 
 /**
- * Class representing a Cours entity
+ * Class representing a Course entity
  */
 export class Cours {
-  constructor(code, titre, semestre, annee) {
+  constructor(code, titre, semestre, annee, description, formation_code, credits) {
     this.code = code;
     this.titre = titre;
     this.semestre = semestre;
     this.annee = annee;
+    this.description = description;
+    this.formation_code = formation_code;
+    this.credits = credits;
+    this.chapitres = [];
+    this.seances = [];
+    this.devoirs = [];
   }
 
-  static fromDb(coursDb) {
+  static fromDb(courseDb) {
     return new Cours(
-      coursDb.code,
-      coursDb.titre,
-      coursDb.semestre,
-      coursDb.annee
+      courseDb.code,
+      courseDb.titre,
+      courseDb.semestre,
+      courseDb.annee,
+      courseDb.description,
+      courseDb.formation_code,
+      courseDb.credits
     );
   }
 
@@ -28,459 +37,401 @@ export class Cours {
       code: this.code,
       titre: this.titre,
       semestre: this.semestre,
-      annee: this.annee
+      annee: this.annee,
+      description: this.description,
+      formation_code: this.formation_code,
+      credits: this.credits
     };
   }
 
   /**
-   * Add a new chapter to the course
-   * @param {String} titre - Chapter title
-   * @param {String} contenu - Chapter content
-   * @returns {Object} New chapter data
+   * Add a chapter to the course
+   * @param {Object} chapitre - Chapter data
+   * @returns {Object} The created chapter
    */
-  ajouterChapitre(titre, contenu) {
-    if (!titre || !titre.trim()) {
-      throw new Error('Le titre du chapitre ne peut pas être vide');
+  ajouterChapitre(chapitre) {
+    // Ensure chapter has an ID and creation date
+    if (!chapitre.id) {
+      chapitre.id = Date.now().toString();
     }
+    if (!chapitre.date_creation) {
+      chapitre.date_creation = new Date();
+    }
+    chapitre.cours_code = this.code;
     
-    return {
-      titre,
-      contenu: contenu || '',
-      cours_code: this.code,
-      date_creation: new Date()
-    };
+    this.chapitres.push(chapitre);
+    return chapitre;
   }
   
   /**
-   * Get all enrolled students for the course
-   * @returns {Promise<Array>} List of enrolled students
+   * Update a chapter
+   * @param {String} chapitreId - Chapter ID
+   * @param {Object} updates - Update data
+   * @returns {Object} Updated chapter
    */
-  async getEtudiantsInscrits() {
-    // This would typically query a database
-    return []; // Placeholder, would return actual students from DB
+  modifierChapitre(chapitreId, updates) {
+    const index = this.chapitres.findIndex(chapitre => chapitre.id === chapitreId);
+    if (index === -1) {
+      throw new Error('Chapter not found');
+    }
+    
+    const updatedChapitre = {
+      ...this.chapitres[index],
+      ...updates,
+      date_modification: new Date()
+    };
+    
+    this.chapitres[index] = updatedChapitre;
+    return updatedChapitre;
+  }
+  
+  /**
+   * Remove a chapter
+   * @param {String} chapitreId - Chapter ID
+   * @returns {Boolean} True if successful
+   */
+  supprimerChapitre(chapitreId) {
+    const initialLength = this.chapitres.length;
+    this.chapitres = this.chapitres.filter(chapitre => chapitre.id !== chapitreId);
+    return this.chapitres.length < initialLength;
+  }
+  
+  /**
+   * Plan a session for the course (as per Flow 3 in sequence diagram)
+   * @param {Object} seance - Session data
+   * @param {String} enseignantId - Teacher ID
+   * @returns {Object} Created session with status
+   */
+  planifierSeance(seance, enseignantId) {
+    if (!seance.id) {
+      seance.id = Date.now().toString();
+    }
+    if (!seance.date_creation) {
+      seance.date_creation = new Date();
+    }
+    seance.cours_code = this.code;
+    seance.enseignant_id = enseignantId;
+    
+    // Set initial status as pending, will be confirmed by coordinator
+    seance.statut = 'pending';
+    
+    this.seances.push(seance);
+    return seance;
+  }
+  
+  /**
+   * Confirm a session (as coordinator)
+   * @param {String} seanceId - Session ID
+   * @returns {Object} Updated session
+   */
+  confirmerSeance(seanceId) {
+    const index = this.seances.findIndex(seance => seance.id === seanceId);
+    if (index === -1) {
+      throw new Error('Session not found');
+    }
+    
+    const updatedSeance = {
+      ...this.seances[index],
+      statut: 'confirmed',
+      date_confirmation: new Date()
+    };
+    
+    this.seances[index] = updatedSeance;
+    return updatedSeance;
+  }
+  
+  /**
+   * Add homework to the course (as per Flow 4 in sequence diagram)
+   * @param {Object} devoir - Homework data
+   * @param {String} enseignantId - Teacher ID
+   * @returns {Object} Created homework
+   */
+  ajouterDevoir(devoir, enseignantId) {
+    if (!devoir.id) {
+      devoir.id = Date.now().toString();
+    }
+    if (!devoir.date_creation) {
+      devoir.date_creation = new Date();
+    }
+    devoir.cours_code = this.code;
+    devoir.enseignant_id = enseignantId;
+    
+    this.devoirs.push(devoir);
+    return devoir;
+  }
+  
+  /**
+   * Update homework
+   * @param {String} devoirId - Homework ID
+   * @param {Object} updates - Update data
+   * @returns {Object} Updated homework
+   */
+  modifierDevoir(devoirId, updates) {
+    const index = this.devoirs.findIndex(devoir => devoir.id === devoirId);
+    if (index === -1) {
+      throw new Error('Homework not found');
+    }
+    
+    const updatedDevoir = {
+      ...this.devoirs[index],
+      ...updates,
+      date_modification: new Date()
+    };
+    
+    this.devoirs[index] = updatedDevoir;
+    return updatedDevoir;
+  }
+  
+  /**
+   * Remove homework
+   * @param {String} devoirId - Homework ID
+   * @returns {Boolean} True if successful
+   */
+  supprimerDevoir(devoirId) {
+    const initialLength = this.devoirs.length;
+    this.devoirs = this.devoirs.filter(devoir => devoir.id !== devoirId);
+    return this.devoirs.length < initialLength;
   }
 }
 
 /**
- * Class representing a Chapitre entity
+ * Class representing a Chapter entity
  */
 export class Chapitre {
-  constructor(id, titre, contenu, cours_code) {
+  constructor(id, titre, contenu, ordre, cours_code) {
     this.id = id;
     this.titre = titre;
     this.contenu = contenu;
+    this.ordre = ordre;
     this.cours_code = cours_code;
+    this.date_creation = new Date();
   }
-
+  
   static fromDb(chapitreDb) {
-    return new Chapitre(
+    const chapitre = new Chapitre(
       chapitreDb.id,
       chapitreDb.titre,
       chapitreDb.contenu,
+      chapitreDb.ordre,
       chapitreDb.cours_code
     );
+    
+    if (chapitreDb.date_creation) {
+      chapitre.date_creation = chapitreDb.date_creation;
+    }
+    
+    if (chapitreDb.date_modification) {
+      chapitre.date_modification = chapitreDb.date_modification;
+    }
+    
+    return chapitre;
   }
-
+  
   toDb() {
     return {
       id: this.id,
       titre: this.titre,
       contenu: this.contenu,
-      cours_code: this.cours_code
-    };
-  }
-  
-  /**
-   * Update chapter content
-   * @param {String} nouveauContenu - New content for the chapter
-   * @returns {Object} Updated chapter data
-   */
-  mettreAJourContenu(nouveauContenu) {
-    this.contenu = nouveauContenu;
-    return {
-      ...this.toDb(),
-      date_modification: new Date()
+      ordre: this.ordre,
+      cours_code: this.cours_code,
+      date_creation: this.date_creation,
+      date_modification: this.date_modification
     };
   }
 }
 
 /**
- * Class representing a Séance entity
+ * Class representing a Session entity
  */
 export class Seance {
-  constructor(id, date, duree, salle, type, cours_code) {
+  constructor(id, titre, date, heure_debut, heure_fin, type, salle, cours_code, enseignant_id) {
     this.id = id;
+    this.titre = titre;
     this.date = date;
-    this.duree = duree;
-    this.salle = salle;
+    this.heure_debut = heure_debut;
+    this.heure_fin = heure_fin;
     this.type = type;
+    this.salle = salle;
     this.cours_code = cours_code;
-  }
-
-  static fromDb(seanceDb) {
-    return new Seance(
-      seanceDb.id,
-      seanceDb.date,
-      seanceDb.duree,
-      seanceDb.salle,
-      seanceDb.type,
-      seanceDb.cours_code
-    );
-  }
-
-  toDb() {
-    return {
-      id: this.id,
-      date: this.date,
-      duree: this.duree,
-      salle: this.salle,
-      type: this.type,
-      cours_code: this.cours_code
-    };
+    this.enseignant_id = enseignant_id;
+    this.statut = 'pending'; // Default status
+    this.date_creation = new Date();
   }
   
-  /**
-   * Reschedule a class session
-   * @param {Date} nouvelleDate - New date for the session
-   * @param {String} nouvelleSalle - New room for the session
-   * @returns {Object} Updated session data
-   */
-  replanifier(nouvelleDate, nouvelleSalle = null) {
-    this.date = nouvelleDate;
-    if (nouvelleSalle) {
-      this.salle = nouvelleSalle;
+  static fromDb(seanceDb) {
+    const seance = new Seance(
+      seanceDb.id,
+      seanceDb.titre,
+      seanceDb.date,
+      seanceDb.heure_debut,
+      seanceDb.heure_fin,
+      seanceDb.type,
+      seanceDb.salle,
+      seanceDb.cours_code,
+      seanceDb.enseignant_id
+    );
+    
+    if (seanceDb.statut) {
+      seance.statut = seanceDb.statut;
     }
     
-    return {
-      ...this.toDb(),
-      date_modification: new Date()
-    };
+    if (seanceDb.date_creation) {
+      seance.date_creation = seanceDb.date_creation;
+    }
+    
+    if (seanceDb.date_confirmation) {
+      seance.date_confirmation = seanceDb.date_confirmation;
+    }
+    
+    return seance;
   }
-}
-
-/**
- * Class representing an Evaluation entity
- */
-export class Evaluation {
-  constructor(id, type, date, matiere, note, cours_code, etudiant_id) {
-    this.id = id;
-    this.type = type;
-    this.date = date;
-    this.matiere = matiere;
-    this.note = note;
-    this.cours_code = cours_code;
-    this.etudiant_id = etudiant_id;
-  }
-
-  static fromDb(evaluationDb) {
-    return new Evaluation(
-      evaluationDb.id,
-      evaluationDb.type,
-      evaluationDb.date,
-      evaluationDb.matiere,
-      evaluationDb.note,
-      evaluationDb.cours_code,
-      evaluationDb.etudiant_id
-    );
-  }
-
+  
   toDb() {
     return {
       id: this.id,
+      titre: this.titre,
+      date: this.date,
+      heure_debut: this.heure_debut,
+      heure_fin: this.heure_fin,
       type: this.type,
-      date: this.date,
-      matiere: this.matiere,
-      note: this.note,
+      salle: this.salle,
       cours_code: this.cours_code,
-      etudiant_id: this.etudiant_id
-    };
-  }
-
-  /**
-   * Calculate average grade from a collection of grades
-   * @param {Array} notes - Array of grade objects with values and coefficients
-   * @returns {Number} Calculated weighted average
-   */
-  calculerMoyenne(notes) {
-    if (!notes || notes.length === 0) return 0;
-    
-    const totalWeightedValue = notes.reduce((sum, note) => {
-      return sum + (note.valeur * note.coefficient);
-    }, 0);
-    
-    const totalCoefficient = notes.reduce((sum, note) => {
-      return sum + note.coefficient;
-    }, 0);
-    
-    return totalCoefficient > 0 ? totalWeightedValue / totalCoefficient : 0;
-  }
-
-  /**
-   * Submit homework or assignment
-   * @param {String} contenu - Content of the submission
-   * @param {Array} pieceJointes - Array of attachments
-   * @returns {Object} Submission record
-   */
-  remettreDevoir(contenu, pieceJointes = []) {
-    return {
-      evaluation_id: this.id,
-      etudiant_id: this.etudiant_id,
-      contenu,
-      piece_jointes: pieceJointes,
-      date_remise: new Date(),
-      statut: 'Remis'
-    };
-  }
-}
-
-/**
- * Class representing a Note entity
- */
-export class Note {
-  constructor(id, valeur, coefficient, evaluation_id, etudiant_id) {
-    this.id = id;
-    this.valeur = valeur;
-    this.coefficient = coefficient;
-    this.evaluation_id = evaluation_id;
-    this.etudiant_id = etudiant_id;
-  }
-
-  static fromDb(noteDb) {
-    return new Note(
-      noteDb.id,
-      noteDb.valeur,
-      noteDb.coefficient,
-      noteDb.evaluation_id,
-      noteDb.etudiant_id
-    );
-  }
-
-  toDb() {
-    return {
-      id: this.id,
-      valeur: this.valeur,
-      coefficient: this.coefficient,
-      evaluation_id: this.evaluation_id,
-      etudiant_id: this.etudiant_id
-    };
-  }
-  
-  /**
-   * Convert the numeric grade to a letter grade
-   * @returns {String} Letter grade (A, B, C, D, F)
-   */
-  convertirEnLettre() {
-    if (this.valeur >= 16) return 'A';
-    if (this.valeur >= 14) return 'B';
-    if (this.valeur >= 12) return 'C';
-    if (this.valeur >= 10) return 'D';
-    return 'F';
-  }
-}
-
-/**
- * Class representing a Formation entity
- */
-export class Formation {
-  constructor(code, intitule, duree) {
-    this.code = code;
-    this.intitule = intitule;
-    this.duree = duree;
-  }
-
-  static fromDb(formationDb) {
-    return new Formation(
-      formationDb.code,
-      formationDb.intitule,
-      formationDb.duree
-    );
-  }
-
-  toDb() {
-    return {
-      code: this.code,
-      intitule: this.intitule,
-      duree: this.duree
-    };
-  }
-  
-  /**
-   * Get all courses for this program
-   * @param {String} semestre - Optional semester filter
-   * @returns {Promise<Array>} List of courses
-   */
-  async getCours(semestre = null) {
-    // This would typically query a database
-    return []; // Placeholder, would return courses from DB
-  }
-}
-
-/**
- * Class representing a Délibération entity
- */
-export class Deliberation {
-  constructor(id, date, statut, administration_id) {
-    this.id = id;
-    this.date = date;
-    this.statut = statut;
-    this.administration_id = administration_id;
-  }
-
-  static fromDb(deliberationDb) {
-    return new Deliberation(
-      deliberationDb.id,
-      deliberationDb.date,
-      deliberationDb.statut,
-      deliberationDb.administration_id
-    );
-  }
-
-  toDb() {
-    return {
-      id: this.id,
-      date: this.date,
-      statut: this.statut,
-      administration_id: this.administration_id
-    };
-  }
-
-  /**
-   * Decide on a "Non Validé" status for a student in a course
-   * @param {Number} etudiantId - ID of the student
-   * @param {String} coursCode - Code of the course
-   * @param {String} motif - Reason for the NV status
-   * @returns {Object} NV decision record
-   */
-  deciderNV(etudiantId, coursCode, motif) {
-    return {
-      deliberation_id: this.id,
-      etudiant_id: etudiantId,
-      cours_code: coursCode,
-      status: 'NV',
-      motif,
-      date: new Date()
-    };
-  }
-  
-  /**
-   * Validate all grades for a specific course
-   * @param {String} coursCode - Code of the course
-   * @returns {Object} Validation record
-   */
-  validerNotes(coursCode) {
-    return {
-      deliberation_id: this.id,
-      cours_code: coursCode,
-      date_validation: new Date(),
-      statut: 'Validé'
-    };
-  }
-}
-
-/**
- * Class representing association tables for many-to-many relationships
- */
-export class Enseignant_Cours {
-  constructor(enseignant_id, cours_code) {
-    this.enseignant_id = enseignant_id;
-    this.cours_code = cours_code;
-  }
-  
-  static fromDb(relationDb) {
-    return new Enseignant_Cours(
-      relationDb.enseignant_id,
-      relationDb.cours_code
-    );
-  }
-  
-  toDb() {
-    return {
       enseignant_id: this.enseignant_id,
-      cours_code: this.cours_code
+      statut: this.statut,
+      date_creation: this.date_creation,
+      date_confirmation: this.date_confirmation
     };
+  }
+  
+  /**
+   * Check for conflicts with other sessions
+   * @param {Array} otherSeances - Other sessions to check against
+   * @returns {Boolean} True if there's a conflict
+   */
+  verifierConflits(otherSeances) {
+    for (const other of otherSeances) {
+      // Skip comparing with self
+      if (other.id === this.id) continue;
+      
+      // Check if on the same day
+      const thisDate = new Date(this.date).toDateString();
+      const otherDate = new Date(other.date).toDateString();
+      
+      if (thisDate !== otherDate) continue;
+      
+      // Convert time strings to minutes for easier comparison
+      const thisStart = timeToMinutes(this.heure_debut);
+      const thisEnd = timeToMinutes(this.heure_fin);
+      const otherStart = timeToMinutes(other.heure_debut);
+      const otherEnd = timeToMinutes(other.heure_fin);
+      
+      // Check for overlap
+      if (
+        (thisStart >= otherStart && thisStart < otherEnd) || // This session starts during the other
+        (thisEnd > otherStart && thisEnd <= otherEnd) || // This session ends during the other
+        (thisStart <= otherStart && thisEnd >= otherEnd) // This session completely contains the other
+      ) {
+        // If conflicting sessions are in the same room, it's a conflict
+        if (this.salle && other.salle && this.salle === other.salle) {
+          return true;
+        }
+      }
+    }
+    
+    return false;
   }
 }
 
-export class Etudiant_Note {
-  constructor(etudiant_id, note_id) {
-    this.etudiant_id = etudiant_id;
-    this.note_id = note_id;
+/**
+ * Class representing a Homework entity
+ */
+export class Devoir {
+  constructor(id, titre, description, deadline, cours_code, enseignant_id) {
+    this.id = id;
+    this.titre = titre;
+    this.description = description;
+    this.deadline = deadline;
+    this.cours_code = cours_code;
+    this.enseignant_id = enseignant_id;
+    this.fichiers = [];
+    this.date_creation = new Date();
   }
   
-  static fromDb(relationDb) {
-    return new Etudiant_Note(
-      relationDb.etudiant_id,
-      relationDb.note_id
+  static fromDb(devoirDb) {
+    const devoir = new Devoir(
+      devoirDb.id,
+      devoirDb.titre,
+      devoirDb.description,
+      devoirDb.deadline,
+      devoirDb.cours_code,
+      devoirDb.enseignant_id
     );
+    
+    if (devoirDb.fichiers) {
+      devoir.fichiers = devoirDb.fichiers;
+    }
+    
+    if (devoirDb.date_creation) {
+      devoir.date_creation = devoirDb.date_creation;
+    }
+    
+    if (devoirDb.date_modification) {
+      devoir.date_modification = devoirDb.date_modification;
+    }
+    
+    return devoir;
   }
   
   toDb() {
     return {
-      etudiant_id: this.etudiant_id,
-      note_id: this.note_id
+      id: this.id,
+      titre: this.titre,
+      description: this.description,
+      deadline: this.deadline,
+      cours_code: this.cours_code,
+      enseignant_id: this.enseignant_id,
+      fichiers: this.fichiers,
+      date_creation: this.date_creation,
+      date_modification: this.date_modification
     };
+  }
+  
+  /**
+   * Add a file attachment to the homework
+   * @param {Object} fichier - File data
+   * @returns {Array} Updated files list
+   */
+  ajouterFichier(fichier) {
+    if (!fichier.id) {
+      fichier.id = Date.now().toString();
+    }
+    
+    fichier.date_ajout = new Date();
+    this.fichiers.push(fichier);
+    
+    return this.fichiers;
+  }
+  
+  /**
+   * Remove a file from the homework
+   * @param {String} fichierId - File ID
+   * @returns {Boolean} True if successful
+   */
+  supprimerFichier(fichierId) {
+    const initialLength = this.fichiers.length;
+    this.fichiers = this.fichiers.filter(fichier => fichier.id !== fichierId);
+    return this.fichiers.length < initialLength;
   }
 }
 
-export class Personnel_Projet {
-  constructor(personnel_id, projet_id) {
-    this.personnel_id = personnel_id;
-    this.projet_id = projet_id;
-  }
+/**
+ * Helper function to convert time string (HH:MM) to minutes
+ * @param {String} timeString - Time in format HH:MM
+ * @returns {Number} Minutes from midnight
+ */
+function timeToMinutes(timeString) {
+  if (!timeString || typeof timeString !== 'string') return 0;
   
-  static fromDb(relationDb) {
-    return new Personnel_Projet(
-      relationDb.personnel_id,
-      relationDb.projet_id
-    );
-  }
-  
-  toDb() {
-    return {
-      personnel_id: this.personnel_id,
-      projet_id: this.projet_id
-    };
-  }
-}
-
-export class Deliberation_Absence {
-  constructor(deliberation_id, absence_id) {
-    this.deliberation_id = deliberation_id;
-    this.absence_id = absence_id;
-  }
-  
-  static fromDb(relationDb) {
-    return new Deliberation_Absence(
-      relationDb.deliberation_id,
-      relationDb.absence_id
-    );
-  }
-  
-  toDb() {
-    return {
-      deliberation_id: this.deliberation_id,
-      absence_id: this.absence_id
-    };
-  }
-}
-
-export class Deliberation_Evaluation {
-  constructor(deliberation_id, evaluation_id) {
-    this.deliberation_id = deliberation_id;
-    this.evaluation_id = evaluation_id;
-  }
-  
-  static fromDb(relationDb) {
-    return new Deliberation_Evaluation(
-      relationDb.deliberation_id,
-      relationDb.evaluation_id
-    );
-  }
-  
-  toDb() {
-    return {
-      deliberation_id: this.deliberation_id,
-      evaluation_id: this.evaluation_id
-    };
-  }
+  const [hours, minutes] = timeString.split(':').map(Number);
+  return (hours * 60) + minutes;
 }

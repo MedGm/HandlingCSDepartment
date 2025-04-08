@@ -31,6 +31,7 @@ const Layout = () => {
       <main className="fstt-main">
         <Outlet />
       </main>
+      
       <Footer />
     </div>
   );

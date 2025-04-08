@@ -1,0 +1,64 @@
+/* Tabs component styles */
+
+.fstt-tabs {
+  width: 100%;
+}
+
+.fstt-tabs-list {
+  display: flex;
+  background-color: var(--bg-secondary, #fff);
+  border-bottom: 1px solid var(--border-color, #ddd);
+  overflow-x: auto;
+}
+
+.fstt-tab-button {
+  background: none;
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text-secondary, #666);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.fstt-tab-button:hover {
+  background-color: var(--hover-color, #f5f5f5);
+  color: var(--primary-color, #005EB8);
+}
+
+.fstt-tab-button.active {
+  color: var(--primary-color, #005EB8);
+  border-bottom: 2px solid var(--primary-color, #005EB8);
+}
+
+.fstt-tabs-content {
+  background-color: var(--bg-primary, #f9f9f9);
+  transition: all 0.3s ease;
+}
+
+.fstt-tab-panel {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.fstt-tab-panel.active {
+  display: block;
+  opacity: 1;
+}
+
+/* RTL Support */
+[dir="rtl"] .fstt-tab-button {
+  margin-right: 0;
+  margin-left: 4px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .fstt-tab-button {
+    padding: 12px 15px;
+    font-size: 0.9em;
+  }
+}

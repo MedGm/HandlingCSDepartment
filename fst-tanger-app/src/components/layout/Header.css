@@ -5,14 +5,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
+/* Enhanced Header color styles to match Hero section */
 .fstt-header {
+  background: linear-gradient(135deg, #00519b, #003366);
+  color: white;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1.5rem;
-  background: var(--header-gradient);
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -20,20 +22,25 @@
   transition: all 0.3s ease;
 }
 
-/* Header styles based on FSTT's official website */
-.fstt-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.5rem;
-  background: var(--header-gradient);
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: 64px;
-  transition: all 0.3s ease;
+/* Remove or adjust any styles creating a white circle in the header */
+.fstt-header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 10.5%),
+              radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 10.5%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  opacity: 0.5;
+  animation: heroPatternMove 60s linear infinite;
+  z-index: -1;
+
+}
+.fstt-header::after {
+  display: none;
 }
 
 .fstt-header-start,
@@ -45,7 +52,8 @@
 .fstt-header-end {
   gap: 10px;
 }
-.title{
+
+.title {
   font-family: 'Roboto', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
@@ -55,6 +63,7 @@
   letter-spacing: 0.5px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
+
 .fstt-header-title {
   display: flex;
   align-items: center;
@@ -91,14 +100,16 @@
 }
 
 .fstt-menu-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
 }
+
 .ns {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
 }
+
 .fstt-menu-toggle svg {
   stroke: currentColor;
   stroke-width: 2;
@@ -107,7 +118,6 @@
 .fstt-menu-icon {
   width: 24px;
   height: 24px;
-  display: block;
 }
 
 /* User dropdown styles */
@@ -125,12 +135,15 @@
   padding: 0;
 }
 
-/* User dropdown styles - improved contrast and hover effects */
+.fstt-user-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 .fstt-user-avatar {
   width: 1px;
   height: 1px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: transparent;
   color: white;
   display: flex;
   align-items: center;
@@ -138,8 +151,8 @@
   font-weight: 600;
   font-size: 1rem;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+  border: none;
 }
 
 .fstt-user-dropdown:hover .fstt-user-avatar,
@@ -154,7 +167,7 @@
   top: 45px;
   background-color: var(--bg-primary);
   min-width: 220px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
   opacity: 0;
@@ -210,9 +223,10 @@
   background-color: var(--bg-secondary);
 }
 
-.fstt-icon {
+.fstt-dropdown-item-icon {
   margin-right: 10px;
   stroke: currentColor;
+  color: var(--accent-color);
 }
 
 .fstt-logout {
@@ -278,7 +292,7 @@
   left: 0;
 }
 
-[dir="rtl"] .fstt-icon,
+[dir="rtl"] .fstt-dropdown-item-icon,
 [dir="rtl"] .fstt-login-icon {
   margin-right: 0;
   margin-left: 10px;
@@ -323,6 +337,10 @@
   background: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fstt-theme-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 /* Dark Mode Enhancements */
@@ -378,4 +396,22 @@
 /* Adjust margins for ThemeToggle to work well with the language toggle */
 .theme-toggle-btn {
   margin: 0;
+}
+
+/* On scroll behavior - header becomes more compact and slightly transparent */
+.fstt-header.scrolled {
+  background: linear-gradient(135deg, rgba(0, 81, 155, 0.95), rgba(0, 51, 102, 0.95));
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.25);
+}
+
+.fstt-app-title {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  background: none;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.fstt-user-name {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }

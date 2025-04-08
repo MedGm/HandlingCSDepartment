@@ -1,7 +1,9 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Icons } from '../common/Icons';
+import db from '../../utils/db';
 import './Sidebar.css';
 
 /**
@@ -13,6 +15,7 @@ import './Sidebar.css';
 const Sidebar = ({ isOpen, closeSidebar }) => {
   const { t } = useTranslation();
   const { currentUser, logout, hasRole, ROLES } = useAuth();
+  const [pendingIncidentsCount, setPendingIncidentsCount] = useState(0);
   
   // Ensure we have a safe function to call even if closeSidebar is not provided
   const handleClose = () => {
@@ -30,6 +33,37 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
     hasRole(ROLES.ADMIN) || 
     hasRole(ROLES.COORDINATEUR)
   );
+
+  // Check if user has lab access - Updated to include CHEF_DEPARTEMENT
+  const hasLabAccess = currentUser && (
+    hasRole(ROLES.CHEF_LABO) || 
+    hasRole(ROLES.CHERCHEUR) || 
+    hasRole(ROLES.ENSEIGNANT) || 
+    hasRole(ROLES.ADMIN) ||
+    hasRole(ROLES.CHEF_DEPARTEMENT)  // Added CHEF_DEPARTEMENT role
+  );
+
+  // Fetch pending incidents count for technicians
+  useEffect(() => {
+    const fetchPendingIncidents = async () => {
+      if (hasRole(ROLES.TECHNICIEN) && db) {
+        try {
+          // Get incidents with status "En attente" or "Assigné" (not resolved)
+          const pendingIncidents = await db.incidents
+            .where('status')
+            .anyOf(['En attente', 'Assigné'])
+            .toArray();
+            
+          setPendingIncidentsCount(pendingIncidents.length);
+        } catch (error) {
+          console.error('Error fetching pending incidents:', error);
+          setPendingIncidentsCount(0);
+        }
+      }
+    };
+
+    fetchPendingIncidents();
+  }, [hasRole, ROLES.TECHNICIEN]);
   
   return (
     <>
@@ -111,7 +145,9 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
             >
               <span className="fstt-nav-icon"><Icons.AlertTriangle /></span>
               {t('nav.incidents')}
-              {hasRole(ROLES.TECHNICIEN) && <span className="fstt-nav-badge">3</span>}
+              {hasRole(ROLES.TECHNICIEN) && pendingIncidentsCount > 0 && (
+                <span className="fstt-nav-badge">{pendingIncidentsCount}</span>
+              )}
             </NavLink>
             
             <NavLink 
@@ -122,6 +158,18 @@ const Sidebar = ({ isOpen, closeSidebar }) => {
               <span className="fstt-nav-icon"><Icons.Briefcase /></span>
               {t('nav.internships')}
             </NavLink>
+            
+            {/* Add Laboratory link */}
+            {hasLabAccess && (
+              <NavLink 
+                to="/laboratory" 
+                className="fstt-nav-item" 
+                onClick={handleClose}
+              >
+                <span className="fstt-nav-icon"><Icons.Flask /></span>
+                {t('laboratory.title')}
+              </NavLink>
+            )}
             
             {(hasRole(ROLES.ENSEIGNANT) || hasRole(ROLES.CHEF_DEPARTEMENT) || hasRole(ROLES.COORDINATEUR)) && (
               <NavLink 
